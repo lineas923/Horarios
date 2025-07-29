@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Horarios de Coche</title>
+  <link rel="stylesheet" href="decoracion.css">
+</head>
+<body>
+  <header>
+    <h1>HORARIOS</h1>
+    <h3>Coloque el número de su coche para obtener su horario</h3>  
+  </header>
+
+  <div class="container">
+    <h2>¿Qué número de coche es?</h2>
+    <input type="text" id="carInput" placeholder="Introducir aquí el número de coche">
+    <button id="verBtn">VER</button>
+  </div>
+
+  <div class="pagar">
+    <h2>Realizar pago</h2>
+    <button id="pagarBtn">PAGAR</button>
+  </div>
+
+  <script>
+    // Botón "VER"
+    document.getElementById("verBtn").addEventListener("click", function() {
+      const input = document.getElementById("carInput").value.trim();
+
+      if (input === "") {
+        alert("Por favor, escribí un número de coche.");
+        return;
+      }
+
+      const numero = parseInt(input);
+      if (isNaN(numero) || numero < 1 || numero > 1000) {
+        window.location.href = "otros.html";
+        return;
+      }
+
+      const pdfURL = numero + ".pdf";
+      window.open(pdfURL, "_blank");
+    });
+
+    // Botón "PAGAR"
+    document.getElementById("pagarBtn").addEventListener("click", function() {
+      window.location.href = "pagos.html";
+    });
+  </script>
+</body>
+</html>
+
