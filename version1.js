@@ -5,18 +5,18 @@ document.getElementById("submitBtn").addEventListener("click", function () {
   if (!isNaN(numero) && numero >= 1 && numero <= 1000) {
     const pdfURL = numero + ".pdf";
 
-    fetch(pdfURL, { method: "HEAD" })
+    fetch(pdfURL)
       .then((res) => {
-        if (res.ok) {
-          window.open(pdfURL, "_blank"); // si el PDF existe
+        if (res.status === 200 || res.ok) {
+          window.open(pdfURL, "_blank");
         } else {
-          window.location.href = "otros.html"; // si no existe
+          window.location.href = "otros.html";
         }
       })
       .catch(() => {
-        window.location.href = "otros.html"; // si hay error de red
+        window.location.href = "otros.html";
       });
   } else {
-    window.location.href = "otros.html"; // si no es un número válido
+    window.location.href = "otros.html";
   }
 });
