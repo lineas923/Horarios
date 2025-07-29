@@ -14,7 +14,7 @@
   <div class="container">
     <h2>¿Qué número de coche es?</h2>
     <input type="text" id="carInput" placeholder="Introducir aquí el número de coche">
-    <button id="verBtn">VER</button>
+    <button id="submitBtn">VER</button>
   </div>
 
   <div class="pagar">
@@ -22,31 +22,34 @@
     <button id="pagarBtn">PAGAR</button>
   </div>
 
+  <!-- ✅ Código JavaScript al final del body -->
   <script>
-    // Botón "VER"
-    document.getElementById("verBtn").addEventListener("click", function() {
+    document.getElementById("submitBtn").addEventListener("click", function () {
       const input = document.getElementById("carInput").value.trim();
-
-      if (input === "") {
-        alert("Por favor, escribí un número de coche.");
-        return;
-      }
-
       const numero = parseInt(input);
-      if (isNaN(numero) || numero < 1 || numero > 1000) {
-        window.location.href = "otros.html";
-        return;
-      }
 
-      const pdfURL = numero + ".pdf";
-      window.open(pdfURL, "_blank");
+      if (!isNaN(numero) && numero >= 1 && numero <= 1000) {
+        const pdfURL = numero + ".pdf";
+
+        fetch(pdfURL, { method: "HEAD" })
+          .then((res) => {
+            if (res.ok) {
+              window.open(pdfURL, "_blank");
+            } else {
+              window.location.href = "otros.html";
+            }
+          })
+          .catch(() => {
+            window.location.href = "otros.html";
+          });
+      } else {
+        window.location.href = "otros.html";
+      }
     });
 
-    // Botón "PAGAR"
-    document.getElementById("pagarBtn").addEventListener("click", function() {
+    document.getElementById("pagarBtn").addEventListener("click", function () {
       window.location.href = "pagos.html";
     });
   </script>
 </body>
 </html>
-
